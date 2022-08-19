@@ -13,3 +13,8 @@ deliveroo--sanity/node_modules/
 
 # macOS
 .DS_Store
+
+firebase
+sanity
+*.json
+*.plist

@@ -1,15 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import { TailwindProvider } from "tailwindcss-react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/HomeScreen";
-import RestaurantScreen from "./screens/RestaurantScreen";
+import ChatScreen from "./screens/ChatScreen";
+import LoginScreen from "./screens/LoginScreen";
+import ModalScreen from "./screens/ModalScreen";
 import { store } from "./store";
 import { Provider } from "react-redux";
-import BasketScreen from "./screens/BasketScreen";
-import PreparingOrderScreen from "./screens/PreparingOrderScreen";
-import DeliveryScreen from "./screens/DeliveryScreen";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, setUserDetails } from "./features/authSlice";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,46 +18,42 @@ export default function App() {
     <TailwindProvider>
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Restaurant" component={RestaurantScreen} />
+          <Stack.Navigator
+          // initialRouteName="Login"
+          >
             <Stack.Screen
-              name="Basket"
-              component={BasketScreen}
+              name="Home"
+              component={HomeScreen}
               options={{
-                presentation: "modal",
-                headerShown: false,
+                headerShown: false, // Hide the header
               }}
             />
             <Stack.Screen
-              name="PreparingOrderScreen"
-              component={PreparingOrderScreen}
+              name="Chat"
+              component={ChatScreen}
               options={{
-                presentation: "fullScreenModal",
-                headerShown: false,
+                headerShown: false, // Hide the header
               }}
             />
             <Stack.Screen
-              name="Delivery"
-              component={DeliveryScreen}
+              name="Login"
+              component={LoginScreen}
               options={{
-                presentation: "fullScreenModal",
-                headerShown: false,
+                headerShown: false, // Hide the header
+              }}
+            />
+            <Stack.Screen
+              name="Modal"
+              component={ModalScreen}
+              options={{
+                headerShown: false, // Hide the header
+                presentation: "Modal",
               }}
             />
           </Stack.Navigator>
         </NavigationContainer>
+        <StatusBar style="auto" />
       </Provider>
-      <StatusBar style="auto" />
     </TailwindProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
